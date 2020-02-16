@@ -1,9 +1,9 @@
-import {Component, QueryList, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren,OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {Country} from './country';
-import {CountryService} from './country.service';
-import {NgbdSortableHeader, SortEvent} from './sortable.directive';
+import {NgbdSortableHeader, SortEvent} from '../directive/sortable.directive';
+import { Report } from '../model/report';
+import { ReportService } from '../service/report.service';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -12,17 +12,17 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 export class ReportsComponent implements OnInit {
 
 
-  countries$: Observable<Country[]>;
+  countries$: Observable<Report[]>;
   total$: Observable<number>;
-  constructor() { }
 
   ngOnInit(): void {
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: CountryService) {
+  constructor(public service: ReportService) {
     this.countries$ = service.countries$;
+    console.log(this.countries$);
     this.total$ = service.total$;
   }
 
